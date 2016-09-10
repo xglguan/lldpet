@@ -7,12 +7,10 @@
     <artifactId>lldpet_cms_root</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>lldpet_cms_business</artifactId>
-  <name>lldpet_cms_business</name>
+  <artifactId>lldpet_cms_web</artifactId>
+  <packaging>war</packaging>
+  <name>lldpet_cms_web Maven Webapp</name>
   <url>http://maven.apache.org</url>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -21,4 +19,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <build>
+    <finalName>lldpet_cms_web</finalName>
+  </build>
 </project>

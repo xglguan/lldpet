@@ -9,8 +9,6 @@
   <description>lldpet cms root</description>
   
   <modules>
-  	<module>lldpet_cms_business</module>
-    <module>lldpet_cms_account</module>
     <module>lldpet_cms_web</module>
     <module>lldpet_cms_core</module>
   </modules>
