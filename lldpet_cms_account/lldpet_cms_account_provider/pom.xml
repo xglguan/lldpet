@@ -11,4 +11,56 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  
+  <build>
+  	<finalName>${project.artifactId}</finalName>
+  	<resources>
+  		<resource>
+  			<directory>src/main/resources</directory>
+  		</resource>
+  		<resource>
+            <directory>src/main/assembly</directory>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/assembly/conf</directory>
+                <filtering>true</filtering>
+            </resource>
+  		<resource>
+  			<!-- 加载java文件夹下的 配置 -->
+  			<directory>src/main/java</directory>
+  			<includes>
+  				<include>**/*.xml</include>
+				<include>**/*.ftl</include>
+				<include>**/*.jsp</include>
+				<include>**/*.js</include>
+				<include>**/*.css</include>
+				<include>**/*.properties</include>
+				<include>**/*.tld</include>
+				<include>**/*.betwixt</include>
+  			</includes>
+  			<filtering>true</filtering>
+  		</resource>
+  	</resources>
+  	<plugins>
+		  <plugin>    
+		    <artifactId>maven-assembly-plugin</artifactId>    
+		    <executions>  <!--执行器 mvn assembly:assembly-->    
+		        <execution>    
+		            <id>make-zip</id><!--名字任意 -->      
+		        <phase>package</phase><!-- 绑定到package生命周期阶段上 -->      
+		        <goals>      
+		           <goal>single</goal><!-- 只运行一次 -->      
+		        </goals>      
+		            <configuration>    
+	                     <descriptors> <!--描述文件路径-->    
+	                          <descriptor>src/main/resources/zip.xml</descriptor>    
+	                    </descriptors>    
+		            </configuration>    
+		        </execution>    
+		    </executions>    
+		 </plugin>  
+  	</plugins>
+  </build>
+  
 </project>

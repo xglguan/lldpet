@@ -18,6 +18,11 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+	    <groupId>com.alibaba</groupId>
+	    <artifactId>druid</artifactId>
+	    <version>1.0.18</version>
+	</dependency>
   </dependencies>
   
   
@@ -44,5 +49,81 @@
             <url>http://127.0.0.1:9081/nexus/content/repositories/maven-snapshot/</url>  
         </snapshotRepository>  
   </distributionManagement> 
+  
+  <build>
+  	
+  </build>
+  
+  <!-- DB -->
+  <profiles>
+  	<profile>
+  		<id>local</id>
+  		<activation>
+  			<activeByDefault>true</activeByDefault>
+  		</activation>
+  		<properties>
+  			<project.compVersion>3.2.0-SNAPSHOT</project.compVersion>
+			<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  			<jdbc.url>jdbc:mysql://127.0.0.1:3306/lldpet_cms_dev</jdbc.url>
+  			<jdbc.username>root</jdbc.username>
+  			<jdbc.password>root</jdbc.password>
+  			<!-- 日志级别，一般由大到小分为 debug info warn error 四个级别，越大日志越详细 -->
+			<log4j.level>debug</log4j.level>
+			<!--日志存储路径，多个项目可以用同一个路径，在该路径下每个项目会自动创建以项目名称命名的子文件夹 -->
+			<log4j.path>./var/log</log4j.path>
+  		</properties>
+  	</profile>
+  	<profile>
+  		<id>dev</id>
+  		<activation>
+  			<activeByDefault>false</activeByDefault>
+  		</activation>
+  		<properties>
+  			<project.compVersion>3.2.0-SNAPSHOT</project.compVersion>
+			<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  			<jdbc.url>jdbc:mysql://127.0.0.1:3306/lldpet_cms_dev</jdbc.url>
+  			<jdbc.username>root</jdbc.username>
+  			<jdbc.password>root</jdbc.password>
+  			<!-- 日志级别，一般由大到小分为 debug info warn error 四个级别，越大日志越详细 -->
+			<log4j.level>debug</log4j.level>
+			<!--日志存储路径，多个项目可以用同一个路径，在该路径下每个项目会自动创建以项目名称命名的子文件夹 -->
+			<log4j.path>./var/log</log4j.path>
+  		</properties>
+  	</profile>
+  	<profile>
+  		<id>test</id>
+  		<activation>
+  			<activeByDefault>false</activeByDefault>
+  		</activation>
+  		<properties>
+  			<project.compVersion>3.2.0-SNAPSHOT</project.compVersion>
+			<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  			<jdbc.url>jdbc:mysql://127.0.0.1:3306/lldpet_cms_dev</jdbc.url>
+  			<jdbc.username>root</jdbc.username>
+  			<jdbc.password>root</jdbc.password>
+  			<!-- 日志级别，一般由大到小分为 debug info warn error 四个级别，越大日志越详细 -->
+			<log4j.level>debug</log4j.level>
+			<!--日志存储路径，多个项目可以用同一个路径，在该路径下每个项目会自动创建以项目名称命名的子文件夹 -->
+			<log4j.path>./var/log</log4j.path>
+  		</properties>
+  	</profile>
+  	<profile>
+  		<id>product</id>
+  		<activation>
+  			<activeByDefault>false</activeByDefault>
+  		</activation>
+  		<properties>
+  			<project.compVersion>3.2.0-SNAPSHOT</project.compVersion>
+			<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  			<jdbc.url>jdbc:mysql://127.0.0.1:3306/lldpet_cms_dev</jdbc.url>
+  			<jdbc.username>root</jdbc.username>
+  			<jdbc.password>root</jdbc.password>
+  			<!-- 日志级别，一般由大到小分为 debug info warn error 四个级别，越大日志越详细 -->
+			<log4j.level>debug</log4j.level>
+			<!--日志存储路径，多个项目可以用同一个路径，在该路径下每个项目会自动创建以项目名称命名的子文件夹 -->
+			<log4j.path>./var/log</log4j.path>
+  		</properties>
+  	</profile>
+  </profiles>
   
 </project>
