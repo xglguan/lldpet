@@ -22,4 +22,6 @@
 	<mvc:annotation-driven/>
 	<!-- 注入 service 和 dao 的注解 -->  
     <context:component-scan base-package="com.lldpet"/>
+    <!-- 启动AOP支持 -->
+    <aop:aspectj-autoproxy/>
 </beans>
