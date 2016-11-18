@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+        http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://code.alibabatech.com/schema/dubbo  
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">       
+    <dubbo:application name="account-provider" />  
+    <!-- 本机 伪集群 测试  check 注册中心不存在时   是否报错    subscribe 是否从此注册中心订阅  false 只发布 不订阅-->       
+    <dubbo:registry  protocol="zookeeper" check="false" subscribe="false" address="127.0.0.1:2181"  />  
+    <!-- 用dubbo协议在20880端口暴露服务 -->
+    <dubbo:protocol name="dubbo" port="20881" />
+   	<!-- 声明需要暴露的服务接口 -->
+    <dubbo:service interface="com.lldpet.cms.service.account.user.ITestUserLoginDubboService" ref="testUserDubboService" />
+    <!-- 和本地bean一样实现服务 -->
+    <bean id="testUserDubboService" class="com.lldpet.cms.account.provider.user.TestUserDubboServiceImpl" />  
+</beans> 

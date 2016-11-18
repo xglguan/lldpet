@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.lldpet</groupId>
+    <artifactId>lldpet_cms_account</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>lldpet_cms_account_provider</artifactId>
+  <name>lldpet_cms_account_provider</name>
+  <url>http://maven.apache.org</url>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+  	<dependency>
+  		<groupId>com.lldpet</groupId>
+	    <artifactId>lldpet_cms_account_api</artifactId>
+	    <version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
+  <build>  
+    <finalName>dubbo-lldpet</finalName>
+    <resources>
+    	<resource>
+            <targetPath>${project.build.directory}/classes</targetPath>
+            <directory>src/main/resources</directory>
+            <filtering>true</filtering>
+            <includes>
+                <include>**/*.xml</include>
+                <include>**/*.properties</include>
+            </includes>
+        </resource>
+        <!-- 结合com.alibaba.dubbo.container.Main，需要重点掌握-->
+        <resource>
+            <targetPath>${project.build.directory}/classes/META-INF/spring</targetPath>
+            <directory>src/main/resources</directory>
+            <filtering>true</filtering>
+            <includes>
+                <include>applicationContext.xml</include>
+            </includes>
+        </resource>
+    </resources>
+    <plugins>
+    	<!-- 编译插件 -->
+        <plugin>  
+            <groupId>org.apache.maven.plugins</groupId>  
+            <artifactId>maven-compiler-plugin</artifactId>  
+            <version>2.1</version>  
+            <configuration>  
+                <source>1.7</source>  
+                <target>1.7</target>  
+                <encoding>UTF-8</encoding>  
+                <failOnError>false</failOnError>  
+            </configuration>  
+        </plugin>
+        <!-- 资源文件 拷贝 -->
+        <plugin>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-resources-plugin</artifactId>
+           <version>2.4.3</version>
+           <executions>
+               <execution>
+                   <id>copy-assembly</id>
+                   <phase>validate</phase>
+                   <configuration>
+                       <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                       <resources>
+                           <resource>
+                               <directory>src/main/assembly/conf</directory>
+                           </resource>
+                       </resources>
+                   </configuration>
+                   <goals>
+                       <goal>copy-resources</goal>
+                   </goals>
+               </execution>
+           </executions>
+        </plugin>
+        <!-- 打jar包时候过滤掉dubbo.properties文件，使用最后发布包里conf下的属性文件 -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>2.3.2</version>
+            <configuration>
+                <excludes>
+                    <excludes>**/conf/**</excludes>
+                    <excludes>**/assembly.xml</excludes>
+                </excludes>
+            </configuration>
+        </plugin>
+        <!-- 发布插件 -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <version>2.4</version>
+            <configuration>
+                <skip>true</skip>
+            </configuration>
+        </plugin>
+        <plugin>  
+		    <groupId>org.codehaus.mojo</groupId>  
+		    <artifactId>exec-maven-plugin</artifactId>  
+		    <version>1.2.1</version>  
+		    <executions>  
+		        <execution>  
+		            <goals>  
+		                <goal>java</goal>  
+		            </goals>  
+		        </execution>  
+		    </executions>  
+		    <configuration>  
+		        <mainClass>com.alibaba.dubbo.container.Main</mainClass>  
+		    </configuration>  
+		</plugin>
+		<plugin>  
+		    <artifactId>maven-assembly-plugin</artifactId>  
+		    <executions>  <!--执行器 mvn assembly:assembly-->  
+		        <execution>  
+		            <id>make-assembly</id><!--名字任意 -->    
+		        <phase>package</phase><!-- 绑定到package生命周期阶段上 -->    
+		        <goals>    
+		           <goal>single</goal><!-- 只运行一次 -->    
+		        </goals>    
+		            <configuration>  
+	                     <descriptors> <!--描述文件路径-->  
+	                          <descriptor>src/main/assembly/assembly.xml</descriptor>  
+	                    </descriptors>  
+		            </configuration>  
+		        </execution>  
+		    </executions>  
+		 </plugin>  
+    </plugins>  
+  </build>
+</project>
